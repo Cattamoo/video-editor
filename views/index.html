@@ -6,14 +6,33 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="/public/flow.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    <script src="/public/js/flow.js" defer></script>
 </head>
 <body>
-    <h3>동영상 편집 Sample</h3>
-    <input type="file" id="file" />
-    <div id="videoArea"></div>
-    <div id="thumbnailArea"></div>
-    <div id="timelineArea"></div>
-    <div id="seekBarArea"></div>
+    <header>
+        <h3 id="title">동영상 편집 Sample</h3>
+        <div id="upload-file">
+            <a id="file-select" class="a-btn">파일선택</a>
+            <span id="file-name"></span>
+            <input id="file" class="hide" type="file" />
+        </div>
+    </header>
+    <div id="container">
+        <div id="viewerContainer">
+            <!-- # Video Viewer -->
+            <div id="videoArea"></div>
+            <div id="timelineContainer">
+                <div id="thumbnailArea"></div>
+                <div id="timelineArea"></div>
+                <div id="seekBarArea"></div>
+            </div>
+        </div>
+        <div id="captionContainer">
+            <!-- # 자막 관리 기능 추가 -->
+            <a class="a-btn">테스트</a>
+            <a class="a-btn disabled">테스트</a>
+        </div>
+    </div>
 </body>
 </html>

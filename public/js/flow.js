@@ -15,7 +15,10 @@
                 .then((res) => res.json())
                 .then((result) => {
                     console.log(result)
-                    const { filePath, thumbnails, destination, duration } = result;
+                    const { filename, filePath, thumbnails, destination, duration } = result;
+
+                    // 파일명
+                    document.querySelector('#file-name').innerHTML = filename;
 
                     // 비디오 렌더링
                     const videoElement = document.createElement('video');
@@ -28,8 +31,8 @@
                     });
                     videoElement.addEventListener('loadeddata', () => {
                         // 썸네일 렌더링
-                        document.body.children.thumbnailArea.innerHTML = '';
-                        document.body.children.timelineArea.innerHTML = '';
+                        document.querySelector('#thumbnailArea').innerHTML = '';
+                        document.querySelector('#timelineArea').innerHTML = '';
                         let start = 0;
                         let end = 0;
                         thumbnails.forEach((thumbnail, i) => {
@@ -42,7 +45,7 @@
                                 video.currentTime = thumbnail.second;
                                 seekBar.value = thumbnail.second;
                             });
-                            document.body.children.thumbnailArea.insertAdjacentElement('beforeend', imgElement);
+                            document.querySelector('#thumbnailArea').insertAdjacentElement('beforeend', imgElement);
 
                             start = parseFloat(thumbnail.second).toFixed(2);
                             end = parseFloat(thumbnails[i + 1] ? thumbnails[i + 1].second : videoElement.duration).toFixed(2);
@@ -50,11 +53,11 @@
                             spanElement.textContent = 'test';
                             spanElement.style.width = `${videoElement.videoWidth / 10}px`;
                             spanElement.textContent = `${start}초 ~ ${end}초`;
-                            document.body.children.timelineArea.insertAdjacentElement('beforeend', spanElement);
+                            document.querySelector('#timelineArea').insertAdjacentElement('beforeend', spanElement);
                         });
 
                         // 시크바 렌더링
-                        document.body.children.seekBarArea.innerHTML = '';
+                        document.querySelector('#seekBarArea').innerHTML = '';
                         const seekBarElement = document.createElement('input');
                         seekBarElement.id = 'seekBar';
                         seekBarElement.type = 'range';
@@ -67,12 +70,15 @@
                             console.log(e.currentTarget.value)
                             videoElement.currentTime = e.currentTarget.value;
                         });
-                        document.body.children.seekBarArea.insertAdjacentElement('beforeend', seekBarElement);
+                        document.querySelector('#seekBarArea').insertAdjacentElement('beforeend', seekBarElement);
                     });
-                    document.body.children.videoArea.innerHTML = '';
-                    document.body.children.videoArea.insertAdjacentElement('beforeend', videoElement);
+                    document.querySelector('#videoArea').innerHTML = '';
+                    document.querySelector('#videoArea').insertAdjacentElement('beforeend', videoElement);
                 })
                 .catch(console.error);
         });
+
+        // 파일선택버튼클릭
+        document.querySelector('#file-select').addEventListener('click', () => document.querySelector('#file').click());
     });
 }
